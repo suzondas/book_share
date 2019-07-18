@@ -27,7 +27,7 @@ The platform is developed and maintained by some energetic software engineers us
 * JQUERY 3.3.1
 * Bootstrap 3.4
 * PHP 5.6
-* NySQL 5.0.1
+* MySQL 5.0.1
 
 
 ### Installation
