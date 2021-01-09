@@ -71,10 +71,14 @@ if (empty($_SESSION['id'])) {
             <div class="row" style="text-align: right; padding-top:10px;">
                 <div class="col-md-9">
                     <a href="booksGiven.php">
-                        <button class="btn btn-info">Given Books</button>
+                        <button class="btn btn-info">Books Donated
+                            <span style="background: #FFE228;" class="badge badge-light"><?= sizeof(booksGiven()) ?></span>
+                        </button>
                     </a>
                     <a href="booksCollected.php">
-                        <button class="btn btn-info">Collected Books</button>
+                        <button class="btn btn-info">Books Collected
+                            <span style="background: #FFE228;" class="badge badge-light"><?= sizeof(booksCollected()) ?></span>
+                        </button>
                     </a>
                 </div>
                 <div class="col-md-3">

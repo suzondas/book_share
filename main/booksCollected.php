@@ -35,7 +35,7 @@ if (empty($_SESSION['id'])) {
 
 </head>
 <body class="container"><br>
-<h2 align="center">People's Request</h2>
+<h2 align="center">Books You Collected</h2>
 <hr>
 <table class="table table-striped table-bordered">
     <thead class="thead-dark">
@@ -44,38 +44,26 @@ if (empty($_SESSION['id'])) {
         <th>Subject</th>
         <th>Course</th>
         <th>Conditions</th>
-        <th>Book Requester</th>
+        <th>Book Owner</th>
         <th>Date</th>
-        <th>Action</th>
+        <th>Code</th>
     </tr>
     </thead>
     <tbody>
     <?php
-    foreach (getBookRequested() as $key) {
+    foreach (booksCollected() as $key) {
         echo "<tr>".
             "<td>".$key["name"]."</td>".
             "<td>".$key["subject"]."</td>".
             "<td>".$key["course"]."</td>".
             "<td>".$key["conditions"]."</td>".
-            "<td><b>".$key["first_name"]." ". $key["last_name"]."</b><br>Address: <br>".$key["upazila"].", ".$key["district"]."<br>Mobile: ".$key["mobile"]."</td>".
+            "<td><b>".$key["first_name"]." ". $key["last_name"]."</b><br>".$key["upazila"].", ".$key["district"]."</td>".
             "<td>".date("d-m-Y",strtotime($key["created"]))."</td>";
-            if($key["accept"] ==1){
-                echo "<td><button style='margin-left:40px;' class='btn btn-light' disabled>Accepted</button>"."<br>Code: <b><input class='btn btn-success' style='margin-top:10px;width:87px' type='text' value='".$key["code"]."' disabled/></b></td>";
-            }else{
-                echo "<td><button onclick='acceptRequest(".$key["request_id"].")' class='btn btn-success'>Accept</button></td>";
-            }
-            echo "</tr>";
+            echo "<td><input class='btn btn-success' style='margin-top:10px;width:87px' type='text' value='".$key["code"]."' disabled/></b></td>";
+        echo "</tr>";
     } ?>
     </tbody>
 </table>
 <a href="dashboard.php"><button class="btn btn-success">Homepage</button></a>
-<script>
-    function acceptRequest(id) {
-        var ask = window.confirm("Are you sure you want to Accept this Request?");
-        if (ask) {
-            window.location.href = "acceptBookRequested.php?request_id="+id;
-        }
-    }
-</script>
 </body>
 </html>

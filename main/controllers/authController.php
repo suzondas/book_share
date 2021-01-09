@@ -61,7 +61,7 @@ function getUpazilas()
 /*Service - getPublishedBook */
 function getPublishedBook()
 {
-    $query = "SELECT * FROM book where user_id=?";
+    $query = "SELECT i.id, i.name, (select name from subject where id=i.subject) as subject, i.course, i.conditions, i.created FROM book i where i.user_id=? and i.available=1";
     $conn = new mysqli('localhost', 'root', '', 'book_share');
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $_SESSION['id']);
@@ -84,7 +84,7 @@ function tokenMatch($request_id, $token)
     $stmt->bind_param('is', $request_id, $token);
     if ($stmt->execute()) {
         $result = $stmt->get_result();
-        if($result->num_rows){
+        if ($result->num_rows) {
             $query1 = "UPDATE token set accepted=1 where request_id=?";
             $stmt1 = $conn->prepare($query1);
             $stmt1->bind_param('i', $request_id);
@@ -98,7 +98,7 @@ function tokenMatch($request_id, $token)
                     $_SESSION['type'] = 'alert-success';
                 }
             }
-        }else{
+        } else {
             header('location: requestedBook.php');
             $_SESSION['message'] = 'Token did not match';
             $_SESSION['type'] = 'alert-danger';
@@ -109,7 +109,7 @@ function tokenMatch($request_id, $token)
 /*Service - requestedBook */
 function getRequestedBook()
 {
-    $query = "SELECT l.id, i.name, i.subject, i.course, i.conditions, i.created, j.first_name, j.last_name, k.name as subject_name, l.accept, (select name from districts where id=h.district) as district, (select name from upazilas where id=h.upazila) as upazila FROM users h, book i, user_academic_info j, subject k, request l where i.user_id=j.user_id and h.id = j.user_id and i.available=true and l.requester_id =? and l.book_id = i.id and i.subject = k.id";
+    $query = "SELECT h.mobile, l.id, i.name, (select name from subject where id = i.subject) as subject, i.course, i.conditions, i.created, j.first_name, j.last_name, k.name as subject_name, l.accept, (select name from districts where id=h.district) as district, (select name from upazilas where id=h.upazila) as upazila FROM users h, book i, user_academic_info j, subject k, request l where i.user_id=j.user_id and h.id = j.user_id and i.available=true and l.requester_id =? and l.book_id = i.id and i.subject = k.id";
     $conn = new mysqli('localhost', 'root', '', 'book_share');
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $_SESSION['id']);
@@ -124,14 +124,15 @@ function getRequestedBook()
 }
 
 /*token function*/
-function token($request_id) {
+function token($request_id)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < 5; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
-    return $request_id.$randomString;
+    return $request_id . $randomString;
 }
 
 /*Service - requestedBook */
@@ -164,7 +165,42 @@ function acceptBookRequested($request_id)
 /*Service - getBookRequested */
 function getBookRequested()
 {
-    $query = "select i.id, i.name, i.subject, i.course, i.conditions, j.first_name, j.last_name, k.accept, k.id as request_id, k.created, (select code from token where request_id=k.id) as code from book i, user_academic_info j, request k where k.user_id=? and k.book_id=i.id and k.requester_id=j.user_id";
+    $query = "select i.id, i.name, (select name from subject where id = i.subject) as subject, i.course, i.conditions, j.first_name, j.last_name, m.mobile, k.accept, k.id as request_id, k.created,(select name from districts where id=m.district) as district, (select name from upazilas where id=m.upazila) as upazila, (select code from token where request_id=k.id) as code from users m, book i, user_academic_info j, request k where m.id=j.user_id and k.user_id=? and k.book_id=i.id and k.requester_id=j.user_id and i.available=1";
+    $conn = new mysqli('localhost', 'root', '', 'book_share');
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $_SESSION['id']);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $arr = [];
+        while ($row = mysqli_fetch_array($result)) {
+            $arr[] = $row;
+        }
+        return $arr;
+    }
+}
+
+
+/*Service - booksCollected */
+function booksCollected()
+{
+    $query = "select i.id, i.name, (select name from subject where id = i.subject) as subject, i.course, i.conditions, j.first_name, j.last_name,  (select name from districts where id=h.district) as district, (select name from upazilas where id=h.upazila) as upazila, k.accept, k.id as request_id, k.created, l.code from users h, book i, user_academic_info j, request k, token l where h.id = i.user_id and i.collector_id=? and i.user_id=j.user_id and k.book_id=i.id and l.request_id=k.id and i.available=0";
+    $conn = new mysqli('localhost', 'root', '', 'book_share');
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $_SESSION['id']);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $arr = [];
+        while ($row = mysqli_fetch_array($result)) {
+            $arr[] = $row;
+        }
+        return $arr;
+    }
+}
+
+/*Service - booksGiven */
+function booksGiven()
+{
+    $query = "select i.id, i.name, (select name from subject where id = i.subject) as subject, i.course, i.conditions, j.first_name, j.last_name,  (select name from districts where id=h.district) as district, (select name from upazilas where id=h.upazila) as upazila, k.accept, k.id as request_id, k.created, l.code from users h, book i, user_academic_info j, request k, token l where h.id = i.collector_id and i.user_id=? and i.collector_id=j.user_id and k.book_id=i.id and l.request_id=k.id and i.available=0";
     $conn = new mysqli('localhost', 'root', '', 'book_share');
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $_SESSION['id']);
@@ -213,8 +249,8 @@ function getProfileDetails()
         $_SESSION['email'] = $user['email'];
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
-        $_SESSION['university'] = $user['university'];
-        $_SESSION['subject'] = $user['subject'];
+//        $_SESSION['university'] = $user['university'];
+//        $_SESSION['subject'] = $user['subject'];
         $_SESSION['verified'] = $user['verified'];
         $_SESSION['message'] = 'You are logged in!';
         $_SESSION['type'] = 'alert-success';
@@ -391,9 +427,10 @@ if (isset($_POST['update_profile_btn'])) {
         $stmt->bind_param('ssii', $_POST['mobile'], $_POST['district'], $_POST['upazila'], $_SESSION['id']);
 
         if ($stmt->execute()) {
-            $query1 = "update user_academic_info set first_name=?, last_name=?, university=?, subject=? where user_id=?";
+            $query1 = "update user_academic_info set first_name=?, last_name=? where user_id=?";
             $stmt1 = $conn->prepare($query1);
-            $stmt1->bind_param('ssiii', $_POST['first_name'], $_POST['last_name'], $_POST['university'], $_POST['subject'], $_SESSION['id']);
+//            echo $_POST['first_name']. $_POST['last_name']. $_SESSION['id'];exit;
+            $stmt1->bind_param('ssi', $_POST['first_name'], $_POST['last_name'], $_SESSION['id']);
 
             if ($stmt1->execute()) {
                 $_SESSION['message'] = "Profile updated successfully!";

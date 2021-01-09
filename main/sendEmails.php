@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 
 // Create the Transport
-$transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+    $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
     ->setUsername("booksharedhaka@gmail.com")
     ->setPassword("Islm52Mehedi");
 
@@ -39,7 +39,7 @@ function sendVerificationEmail($userEmail, $token)
       <div class="wrapper">
       <h2>Book Share</h2>
         <p>Thank you for signing up on our site. Please click on the link below to verify your account:.</p>
-        <a href="http://localhost/bookshare/main/verify_email.php?token=' . $token . '">Verify Email!</a>
+        <a href="http://localhost/project/main/verify_email.php?token=' . $token . '">Verify Email!</a>
       </div>
     </body>
 

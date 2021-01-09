@@ -60,7 +60,7 @@ if (empty($_SESSION['id'])) {
             "<td>".$key["subject"]."</td>".
             "<td>".$key["course"]."</td>".
             "<td>".$key["conditions"]."</td>".
-            "<td><b>".$key["first_name"]." ". $key["last_name"]."</b><br>".$key["upazila"].", ".$key["district"]."</td>".
+            "<td><b>".$key["first_name"]." ". $key["last_name"]."</b><br>Address: <br>".$key["upazila"].", ".$key["district"]."<br>Mobile: ".$key["mobile"]."</td>".
             "<td>".date("d-m-Y",strtotime($key["created"]))."</td>";
             if($key["accept"] ==1){
                 echo "<td>Request was Accepted"."<br>

@@ -23,7 +23,6 @@
                             <li><a href="#home-section" class="nav-link">Home</a></li>
                             <li><a href="#courses-section" class="nav-link">Latest Books</a></li>
                             <li><a href="#programs-section" class="nav-link">About Book Share</a></li>
-                            <li><a href="#teachers-section" class="nav-link">About Us</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -150,8 +149,8 @@
         <div class="container">
             <div class="row mb-5 justify-content-center">
                 <div class="col-lg-7 text-center"  data-aos="fade-up" data-aos-delay="">
-                    <h2 class="section-title">About Us</h2>
-                    <p>We are some energetic, talented and volunteer students from Bangladesh University of Business and Technology (BUBT) helping people to build book reading habit through <font face="bold">Book Share</font> Application</p>
+                    <h2 class="section-title">About Book Share</h2>
+                    <p>The aim of this project is to help people to build book reading habit</p>
                 </div>
             </div>
             <div class="row mb-5 align-items-center">
@@ -199,66 +198,20 @@
         </div>
     </div>
 
-    <div class="site-section" id="teachers-section">
-        <div class="container">
 
-            <div class="row mb-5 justify-content-center">
-                <div class="col-lg-7 mb-5 text-center"  data-aos="fade-up" data-aos-delay="">
-                    <h2 class="section-title">We are Team</h2>
-                    <p class="mb-5">We are team of some energetic, out of the box thinkers from BUBT who wants to build life-long education for all so that none leaves behind</p>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="teacher text-center">
-                        <img src="src/images/person_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
-                        <div class="py-2">
-                            <h3 class="text-black">Rajon Chandra Das</h3>
-                            <p class="position">Team Lead</p>
-                            <p>Loves PHP, JS, MySql, etc.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="teacher text-center">
-                        <img src="src/images/person_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
-                        <div class="py-2">
-                            <h3 class="text-black">Md. Atikur Rahman</h3>
-                            <p class="position">Team Member</p>
-                            <p>Loves HTML, CSS</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="teacher text-center">
-                        <img src="src/images/person_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
-                        <div class="py-2">
-                            <h3 class="text-black">Kazi Yasin Arafat</h3>
-                            <p class="position">Team Member</p>
-                            <p>Loves HTML, CSS</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="site-section bg-image overlay" style="background-image: url('src/images/hero_1.jpg');">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-8 text-center testimony">
                     <img src="src/images/person_4.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
-                    <h3 class="mb-4"><font size="26" color="#f9b620"> Md Saifur Rahman</font><br>
-                        Assistant Professor<br>
-                        Department of CSE<br>
-                            Bangladesh University of Business and Technology (BUBT)
+                    <h3 class="mb-4"><font size="26" color="#f9b620"> Suzon Chandra Das</font><br>
+                        Roll: 18326<br>
+                        PGD IT Fall 18, IIT<br>
+                            Jahangirnagar University
                         </h3>
                     <blockquote>
-                        <p>&ldquo; Majestic, wondrous, charming, gracious, polite, talented, genius, elegant, stunning Project Advisor "</p>
+                        <p>&ldquo; Technology Lover, Programmer and a Good Minded Man"</p>
                     </blockquote>
                 </div>
             </div>
